@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC  -D_FORCE_INLINES -fopenmp -O3 -DNDEBUG  -shared  -o libcuspy.so CMakeFiles/cuspy.dir/cuspy_generated_init.cu.o  -L/home/aranjan/torch/install/lib -lcudart -lluaT -lTHC /home/aranjan/torch/install/lib/libTH.so.0 -lopenblas -lrt -lm -Wl,-rpath,/home/aranjan/torch/install/lib::::::::::::::: 

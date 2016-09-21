@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC  -fopenmp -O3 -DNDEBUG  -shared  -o libspy.so CMakeFiles/spy.dir/init.c.o  -L/home/aranjan/torch/install/lib -lluaT /home/aranjan/torch/install/lib/libTH.so.0 -lopenblas -lrt -lm -Wl,-rpath,/home/aranjan/torch/install/lib::::::::::::::: 

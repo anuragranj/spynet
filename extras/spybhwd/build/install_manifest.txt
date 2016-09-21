@@ -1,0 +1,5 @@
+/home/aranjan/torch/install/lib/luarocks/rocks/spybhwd/scm-1/lib/libspy.so
+/home/aranjan/torch/install/lib/luarocks/rocks/spybhwd/scm-1/lua/spy/ScaleBHWD.lua
+/home/aranjan/torch/install/lib/luarocks/rocks/spybhwd/scm-1/lua/spy/test.lua
+/home/aranjan/torch/install/lib/luarocks/rocks/spybhwd/scm-1/lua/spy/init.lua
+/home/aranjan/torch/install/lib/luarocks/rocks/spybhwd/scm-1/lib/libcuspy.so
