@@ -1,6 +1,9 @@
 # spynet
+Download the data
 
-To install required packages:
+    wget http://lmb.informatik.uni-freiburg.de/resources/datasets/FlyingChairs/FlyingChairs.zip
+
+Install required packages:
 
     cd extras/spybhwd
     luarocks make
@@ -8,6 +11,7 @@ To install required packages:
     cd extras/stnbhwd
     luarocks make
 
-To run the real-time test:
+Run the real-time test:
 
     th cudarealtimeTestedOk.lua
+    
