@@ -1,8 +1,0 @@
-/home/aranjan/stnbhwd/build/CMakeFiles/install.dir
-/home/aranjan/stnbhwd/build/CMakeFiles/list_install_components.dir
-/home/aranjan/stnbhwd/build/CMakeFiles/edit_cache.dir
-/home/aranjan/stnbhwd/build/CMakeFiles/stn.dir
-/home/aranjan/stnbhwd/build/CMakeFiles/rebuild_cache.dir
-/home/aranjan/stnbhwd/build/CMakeFiles/custn.dir
-/home/aranjan/stnbhwd/build/CMakeFiles/install/strip.dir
-/home/aranjan/stnbhwd/build/CMakeFiles/install/local.dir
