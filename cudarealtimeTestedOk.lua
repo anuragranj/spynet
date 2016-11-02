@@ -41,22 +41,3 @@ for i=1,opt.N do
 
     timings[i] = time_elapsed
 end
-cutorch.streamSynchronize(cutorch.getStream())
-
-
-for i=1,opt.N do
-    local id = i
-    local raw_im1, raw_im2, raw_flow = donkey.getRawData(id)
-    
-    
-    local _err = (raw_flow - flowCPU[i]):pow(2)
-    local err = torch.sum(_err, 1):sqrt()
-    loss = loss + err:float()
-    errors[i] = err:mean() 
-    
-    print(i, errors[i])
-end
-loss = torch.div(loss, opt.N)
-print('Average EPE = '..loss:sum()/(opt.fineWidth*opt.fineHeight))
-print('Mean Timing: ' ..timings:mean())
-print('Median Timing: ' ..timings:median()[1])
