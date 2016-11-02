@@ -14,21 +14,20 @@ opt.polluteFlow = 0
 opt.augment = 0
 opt.warp = 1
 opt.batchSize = 1
-opt.data = '/is/ps2/aranjan/FlowNet2/data'
+opt.data = 'samples'
+opt.N = 3
 donkey = require('minidonkeyGPU')
---cutorch.setDevice(1)
 
-local train_samples, validation_samples = donkey.getTrainValidationSplits('train_val_split.txt')
 local loss = torch.zeros(1,1, opt.fineHeight, opt.fineWidth):float()
-local errors = torch.zeros(validation_samples:size()[1])
-timings = torch.zeros(validation_samples:size()[1])
+local errors = torch.zeros(opt.N)
+timings = torch.zeros(opt.N)
 local loss = 0
 local flowCPU = cutorch.createCudaHostTensor(640, 2,opt.fineHeight,opt.fineWidth):uniform()
 
-for i=1,validation_samples:size()[1] do
+for i=1,opt.N do
     collectgarbage()
 
-    local id = validation_samples[i][1]
+    local id = i
     local imgs, flow = donkey.testHook(id)
 
     timer = torch.Timer()
@@ -45,8 +44,8 @@ end
 cutorch.streamSynchronize(cutorch.getStream())
 
 
-for i=1,validation_samples:size()[1] do
-    local id = validation_samples[i][1]
+for i=1,opt.N do
+    local id = i
     local raw_im1, raw_im2, raw_flow = donkey.getRawData(id)
     
     
@@ -57,7 +56,7 @@ for i=1,validation_samples:size()[1] do
     
     print(i, errors[i])
 end
-loss = torch.div(loss, validation_samples:size()[1])
+loss = torch.div(loss, opt.N)
 print('Average EPE = '..loss:sum()/(opt.fineWidth*opt.fineHeight))
 print('Mean Timing: ' ..timings:mean())
 print('Median Timing: ' ..timings:median()[1])
