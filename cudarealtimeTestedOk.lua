@@ -18,10 +18,6 @@ opt.data = 'samples'
 opt.N = 3
 donkey = require('minidonkeyGPU')
 
-local loss = torch.zeros(1,1, opt.fineHeight, opt.fineWidth):float()
-local errors = torch.zeros(opt.N)
-timings = torch.zeros(opt.N)
-local loss = 0
 local flowCPU = cutorch.createCudaHostTensor(640, 2,opt.fineHeight,opt.fineWidth):uniform()
 
 for i=1,opt.N do
@@ -38,6 +34,4 @@ for i=1,opt.N do
     local time_elapsed = timer:time().real  
 
     print('Time Elapsed: '..time_elapsed)
-
-    timings[i] = time_elapsed
 end
