@@ -1,4 +1,4 @@
-# spynet
+# SPyNet: Spatial Pyramid Network for Optical Flow Estimation
 Download the data
 
     wget http://lmb.informatik.uni-freiburg.de/resources/datasets/FlyingChairs/FlyingChairs.zip

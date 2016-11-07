@@ -1,9 +1,6 @@
 require 'image'
 require 'cutorch'
 
---------------------------------
---LEVEL 5: LOSS IMAGE ON VALIDATION SET
---------------------------------
 opt = {}
 opt.showFlow = 0
 opt.fineHeight = 384
@@ -14,9 +11,8 @@ opt.polluteFlow = 0
 opt.augment = 0
 opt.warp = 1
 opt.batchSize = 1
-opt.data = '/is/ps2/aranjan/FlowNet2/data'
-donkey = require('minidonkeyGPU')
---cutorch.setDevice(1)
+opt.data = '/is/ps2/aranjan/AllFlowData/flying_chairs'
+local donkey = require('timing_util')
 
 local train_samples, validation_samples = donkey.getTrainValidationSplits('train_val_split.txt')
 local loss = torch.zeros(1,1, opt.fineHeight, opt.fineWidth):float()
@@ -48,7 +44,6 @@ cutorch.streamSynchronize(cutorch.getStream())
 for i=1,validation_samples:size()[1] do
     local id = validation_samples[i][1]
     local raw_im1, raw_im2, raw_flow = donkey.getRawData(id)
-    
     
     local _err = (raw_flow - flowCPU[i]):pow(2)
     local err = torch.sum(_err, 1):sqrt()
