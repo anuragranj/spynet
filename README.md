@@ -12,7 +12,7 @@ luarocks make
 ```
 ## For Fast Performace
 #### Set up SPyNet
-Set up SPyNet according to the image size and model. For optimal performance, make sure the image width and height are a multiple of 32. You can also specify your favorite fine tuned model. The present supported modes are `sintelFinal`(default) and `sintelClean`. 
+Set up SPyNet according to the image size and model. For optimal performance, resize your image such that width and height are a multiple of 32. You can also specify your favorite fine tuned model. The present supported modes are `sintelFinal`(default) and `sintelClean`. 
 ```lua
 spynet = require('spynet')
 computeFlow = spynet.setup(512, 384, 'sintelFinal')
