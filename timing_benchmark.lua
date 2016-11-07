@@ -1,7 +1,10 @@
 require 'image'
 require 'cutorch'
 
-opt = {}
+local cmd = torch.CmdLine()
+cmd:option('-data', '../FlyingChairs/data', 'Flying Chairs data directory')
+opt = cmd:parse(arg or {})
+
 opt.showFlow = 0
 opt.fineHeight = 384
 opt.fineWidth = 512
@@ -11,7 +14,6 @@ opt.polluteFlow = 0
 opt.augment = 0
 opt.warp = 1
 opt.batchSize = 1
-opt.data = '/is/ps2/aranjan/AllFlowData/flying_chairs'
 local donkey = require('timing_util')
 
 local train_samples, validation_samples = donkey.getTrainValidationSplits('train_val_split.txt')
