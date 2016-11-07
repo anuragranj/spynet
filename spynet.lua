@@ -219,13 +219,23 @@ local function setup(width, height, opt)
   end
 
   if opt=="sintelFinal" then
-    modelL1path = paths.concat('models', 'modelL1_F3.t7')
-    modelL2path = paths.concat('models', 'modelL2_F3.t7')
-    modelL3path = paths.concat('models', 'modelL3_F3.t7')
-    modelL4path = paths.concat('models', 'modelL4_F3.t7')
-    modelL5path = paths.concat('models', 'modelL5_F3.t7')
-    modelL6path = paths.concat('models', 'modelL6_F3.t7')
+    modelL1path = paths.concat('models', 'modelL1_F.t7')
+    modelL2path = paths.concat('models', 'modelL2_F.t7')
+    modelL3path = paths.concat('models', 'modelL3_F.t7')
+    modelL4path = paths.concat('models', 'modelL4_F.t7')
+    modelL5path = paths.concat('models', 'modelL5_F.t7')
+    modelL6path = paths.concat('models', 'modelL6_F.t7')
   end
+
+  if opt=="sintelClean" then
+    modelL1path = paths.concat('models', 'modelL1_C.t7')
+    modelL2path = paths.concat('models', 'modelL2_C.t7')
+    modelL3path = paths.concat('models', 'modelL3_C.t7')
+    modelL4path = paths.concat('models', 'modelL4_C.t7')
+    modelL5path = paths.concat('models', 'modelL5_C.t7')
+    modelL6path = paths.concat('models', 'modelL6_C.t7')
+  end
+
 
   if level>0 then
     modelL1 = torch.load(modelL1path)
