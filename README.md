@@ -24,7 +24,7 @@ flow = easyComputeFlow(im1, im2)
 ```
 ## For Fast Performace, follow this
 #### Set up SPyNet
-Set up SPyNet according to the image size and model. For optimal performance, resize your image such that width and height are a multiple of 32. You can also specify your favorite fine tuned model. The present supported modes are `sintelFinal`(default) and `sintelClean`. 
+Set up SPyNet according to the image size and model. For optimal performance, resize your image such that width and height are a multiple of 32. You can also specify your favorite model. The present supported modes are fine tuned models `sintelFinal`(default) and `sintelClean`, and base models `chairsFinal` and `chairsClean`. 
 ```lua
 spynet = require('spynet')
 computeFlow = spynet.setup(512, 384, 'sintelFinal')    -- for 384x512 images
