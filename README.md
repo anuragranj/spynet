@@ -15,7 +15,7 @@ luarocks make
 Set up SPyNet according to the image size and model. For optimal performance, resize your image such that width and height are a multiple of 32. You can also specify your favorite fine tuned model. The present supported modes are `sintelFinal`(default) and `sintelClean`. 
 ```lua
 spynet = require('spynet')
-computeFlow = spynet.setup(512, 384, 'sintelFinal')
+computeFlow = spynet.setup(512, 384, 'sintelFinal')    -- for 384x512 images
 ```
 Now you can call computeFlow anytime to estimate optical flow between image pairs.
 
