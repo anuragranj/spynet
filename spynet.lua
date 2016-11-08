@@ -236,6 +236,23 @@ local function setup(width, height, opt)
     modelL6path = paths.concat('models', 'modelL6_C.t7')
   end
 
+  if opt=="chairsClean" then
+    modelL1path = paths.concat('models', 'modelL1_4.t7')
+    modelL2path = paths.concat('models', 'modelL2_4.t7')
+    modelL3path = paths.concat('models', 'modelL3_4.t7')
+    modelL4path = paths.concat('models', 'modelL4_4.t7')
+    modelL5path = paths.concat('models', 'modelL5_4.t7')
+    modelL6path = paths.concat('models', 'modelL5_4.t7')
+  end
+
+  if opt=="chairsFinal" then
+    modelL1path = paths.concat('models', 'modelL1_3.t7')
+    modelL2path = paths.concat('models', 'modelL2_3.t7')
+    modelL3path = paths.concat('models', 'modelL3_3.t7')
+    modelL4path = paths.concat('models', 'modelL4_3.t7')
+    modelL5path = paths.concat('models', 'modelL5_3.t7')
+    modelL6path = paths.concat('models', 'modelL5_3.t7')
+  end
 
   if level>0 then
     modelL1 = torch.load(modelL1path)
