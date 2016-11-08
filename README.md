@@ -10,6 +10,18 @@ luarocks make
 cd ../stnbhwd
 luarocks make
 ```
+## For Easy Usage, follow this
+#### Set up SPyNet
+```lua
+spynet = require('spynet')
+easyComputeFlow = spynet.easy_setup()
+```
+#### Load images and compute flow
+```lua
+im1 = image.load('samples/00001_img1.ppm' )
+im2 = image.load('samples/00001_img2.ppm' )
+flow = easyComputeFlow(im1, im2)
+```
 ## For Fast Performace, follow this
 #### Set up SPyNet
 Set up SPyNet according to the image size and model. For optimal performance, resize your image such that width and height are a multiple of 32. You can also specify your favorite fine tuned model. The present supported modes are `sintelFinal`(default) and `sintelClean`. 
@@ -35,18 +47,6 @@ flow = computeFlow(im)
 You can also use batch-mode, if your images `im` are a tensor of size `Bx6xHxW`, of batch size B with 6 RGB pair channels. You can directly use:
 ```lua
 flow = computeFlow(im)
-```
-## For Easy Usage, follow this
-#### Set up SPyNet
-```lua
-spynet = require('spynet')
-easyComputeFlow = spynet.easy_setup()
-```
-#### Load images and compute flow
-```lua
-im1 = image.load('samples/00001_img1.ppm' )
-im2 = image.load('samples/00001_img2.ppm' )
-flow = easyComputeFlow(im1, im2)
 ```
 ## Timing Benchmarks
 Our timing benchmark is set up on Flying chair dataset. To test it, you need to download
