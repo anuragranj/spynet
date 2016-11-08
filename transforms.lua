@@ -1,3 +1,10 @@
+-- Copyright 2016 Anurag Ranjan and the Max Planck Gesellschaft.
+-- All rights reserved.
+-- This software is provided for research purposes only.  
+-- By using this software you agree to the terms of the license file 
+-- in the root folder.
+-- For commercial use, please contact ps-license@tue.mpg.de.
+
 --  https://github.com/facebook/fb.resnet.torch/blob/master/datasets/transforms.lua
 --  
 --  Copyright (c) 2016, Facebook, Inc.
