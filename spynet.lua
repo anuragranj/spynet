@@ -289,4 +289,113 @@ local function setup(width, height, opt)
 end
 M.setup = setup
 
+local function DeAdjustFlow(flow, h, w)
+  local sc_h = h/flow:size(2)
+  local sc_w = w/flow:size(3)
+  flow = image.scale(flow, w, h, 'simple')
+  flow[2] = flow[2]*sc_h
+  flow[1] = flow[1]*sc_w
+
+  return flow
+end
+M.DeAdjustFlow = DeAdjustFlow
+
+local easyComputeFlow = function(im1, im2)
+  local imgs = torch.cat(im1, im2, 1)
+
+  local width = imgs:size(3)
+  local height = imgs:size(2)
+  
+  local fineWidth, fineHeight
+  
+  if width%32 == 0 then
+    fineWidth = width
+  else
+    fineWidth = width + 32 - math.fmod(width, 32)
+  end
+
+  if height%32 == 0 then
+    fineHeight = height
+  else
+    fineHeight = height + 32 - math.fmod(height, 32)
+  end  
+       
+  imgs = image.scale(imgs, fineWidth, fineHeight)
+
+  local len = math.max(fineWidth, fineHeight)
+  local computeFlow
+  
+  if len <= 32 then
+    computeFlow = computeInitFlowL1
+  elseif len <= 64 then
+    computeFlow = computeInitFlowL2
+  elseif len <= 128 then
+    computeFlow = computeInitFlowL3
+  elseif len <= 256 then
+    computeFlow = computeInitFlowL4
+  elseif len <= 512 then
+    computeFlow = computeInitFlowL5
+  else
+    computeFlow = computeInitFlowL6
+  end
+
+  imgs = imgs:resize(1,6,fineHeight,fineWidth):cuda()
+  local flow_est = computeFlow(imgs)
+
+  flow_est = flow_est:squeeze():float()
+  flow_est = DeAdjustFlow(flow_est, height, width)
+
+  return flow_est
+
+end
+
+local function easy_setup()
+  modelL1path = paths.concat('models', 'modelL1_F.t7')
+  modelL2path = paths.concat('models', 'modelL2_F.t7')
+  modelL3path = paths.concat('models', 'modelL3_F.t7')
+  modelL4path = paths.concat('models', 'modelL4_F.t7')
+  modelL5path = paths.concat('models', 'modelL5_F.t7')
+  modelL6path = paths.concat('models', 'modelL6_F.t7')
+
+  modelL1 = torch.load(modelL1path)
+  if torch.type(modelL1) == 'nn.DataParallelTable' then
+     modelL1 = modelL1:get(1)
+  end
+  modelL1:evaluate()
+
+  modelL2 = torch.load(modelL2path)
+  if torch.type(modelL2) == 'nn.DataParallelTable' then
+     modelL2 = modelL2:get(1)
+  end
+  modelL2:evaluate()
+
+  modelL3 = torch.load(modelL3path)
+  if torch.type(modelL3) == 'nn.DataParallelTable' then
+     modelL3 = modelL3:get(1)
+  end
+  modelL3:evaluate()
+
+  modelL4 = torch.load(modelL4path)
+  if torch.type(modelL4) == 'nn.DataParallelTable' then
+    modelL4 = modelL4:get(1)
+  end
+  modelL4:evaluate()
+
+  modelL5 = torch.load(modelL5path)
+  if torch.type(modelL5) == 'nn.DataParallelTable' then
+    modelL5 = modelL5:get(1)
+  end
+  modelL5:evaluate()
+
+  modelL6 = torch.load(modelL6path)
+  if torch.type(modelL6) == 'nn.DataParallelTable' then
+    modelL6 = modelL6:get(1)
+  end
+  modelL6:evaluate()
+  return easyComputeFlow
+end
+M.easy_setup = easy_setup
+
+
+
 return M
