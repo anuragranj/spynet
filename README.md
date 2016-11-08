@@ -64,4 +64,4 @@ th timing_benchmark.lua -data YOUR_FLYING_CHAIRS_DATA_DIRECTORY
    Dosovitskiy, Alexey, et al. "Flownet: Learning optical flow with convolutional networks." 2015 IEEE International Conference on Computer Vision (ICCV). IEEE, 2015.
 
 ## When using this code, please cite
-Anurag Ranjan and Michael Black, "Optical Flow Estimation using a Spatial Pyramid Network", arXiv preprint arXiv:1611.00850 cs.CV (2016). 
+Ranjan, Anurag, and Michael J. Black. "Optical Flow Estimation using a Spatial Pyramid Network." arXiv preprint arXiv:1611.00850 (2016). 
