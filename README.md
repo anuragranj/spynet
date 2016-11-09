@@ -34,7 +34,6 @@ Now you can call computeFlow anytime to estimate optical flow between image pair
 #### Computing flow
 Load an image pair and stack it.
 ```lua
-require 'image'
 im1 = image.load('samples/00001_img1.ppm' )
 im2 = image.load('samples/00001_img2.ppm' )
 im = torch.cat(im1, im2, 1)
