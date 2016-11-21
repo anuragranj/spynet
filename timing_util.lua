@@ -82,11 +82,11 @@ warpmodel5:evaluate()
 local  modelL0, modelL1, modelL2, modelL3, modelL4, modelL5
 local modelL1path, modelL2path, modelL3path, modelL4path, modelL5path
 
-modelL1path = paths.concat('models', 'modelL1_3.t7')
-modelL2path = paths.concat('models', 'modelL2_3.t7')
-modelL3path = paths.concat('models', 'modelL3_3.t7')
-modelL4path = paths.concat('models', 'modelL4_3.t7')
-modelL5path = paths.concat('models', 'modelL5_3.t7')
+modelL1path = paths.concat('models', 'modelL1_4.t7')
+modelL2path = paths.concat('models', 'modelL2_4.t7')
+modelL3path = paths.concat('models', 'modelL3_4.t7')
+modelL4path = paths.concat('models', 'modelL4_4.t7')
+modelL5path = paths.concat('models', 'modelL5_4.t7')
 
 modelL1 = torch.load(modelL1path)
 if torch.type(modelL1) == 'nn.DataParallelTable' then
