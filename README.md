@@ -32,11 +32,12 @@ computeFlow = spynet.setup(512, 384, 'sintelFinal')    -- for 384x512 images
 Now you can call computeFlow anytime to estimate optical flow between image pairs.
 
 #### Computing flow
-Load an image pair and stack it.
+Load an image pair and stack and normalize it.
 ```lua
 im1 = image.load('samples/00001_img1.ppm' )
 im2 = image.load('samples/00001_img2.ppm' )
 im = torch.cat(im1, im2, 1)
+im = spynet.normalize(im)
 ```
 SPyNet works with batches of data on CUDA. So, compute flow using
 ```lua

@@ -334,8 +334,14 @@ local function DeAdjustFlow(flow, h, w)
 end
 M.DeAdjustFlow = DeAdjustFlow
 
+local function normalize(imgs)
+  return TF.ColorNormalize(meanstd)(imgs)
+end
+M.normalize = normalize
+
 local easyComputeFlow = function(im1, im2)
   local imgs = torch.cat(im1, im2, 1)
+  imgs = TF.ColorNormalize(meanstd)(imgs)
 
   local width = imgs:size(3)
   local height = imgs:size(2)
