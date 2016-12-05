@@ -170,7 +170,7 @@ end
 M.loadFLO = loadFLO
 
 local function writeFLO(filename, F)
-  F = F:permute(2,3,1)
+  F = F:permute(2,3,1):clone()
   TAG_FLOAT = 202021.25 
   local ff = torch.DiskFile(filename, 'w'):binary()
   ff:writeFloat(TAG_FLOAT)
