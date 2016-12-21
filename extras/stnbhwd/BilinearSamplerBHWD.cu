@@ -261,41 +261,11 @@ template<bool onlyGrid> __global__ void backwardBilinearSampling(float* inputIma
          }
       }
 
-      /*
-         Here we reduce the dot product and compute the grid gradient before writing it.
-      */
-
-      /* could do shuffles and use no shmem at all but cuda arch is 2.0 */
-      __shared__ volatile float __shmem[16][32];
-      __shmem[threadIdx.y][threadIdx.x] = topLeftDotProduct;
-      sumReduceShMem(__shmem[threadIdx.y]);
-      topLeftDotProduct = __shmem[threadIdx.y][0];
-
-      __shmem[threadIdx.y][threadIdx.x] = topRightDotProduct;
-      sumReduceShMem(__shmem[threadIdx.y]);
-      topRightDotProduct = __shmem[threadIdx.y][0];
-
-      __shmem[threadIdx.y][threadIdx.x] = bottomLeftDotProduct;
-      sumReduceShMem(__shmem[threadIdx.y]);
-      bottomLeftDotProduct = __shmem[threadIdx.y][0];
-
-      __shmem[threadIdx.y][threadIdx.x] = bottomRightDotProduct;
-      sumReduceShMem(__shmem[threadIdx.y]);
-      bottomRightDotProduct = __shmem[threadIdx.y][0];
-
-      yf = - xWeightTopLeft * topLeftDotProduct + xWeightTopLeft * bottomLeftDotProduct - (1-xWeightTopLeft) * topRightDotProduct + (1-xWeightTopLeft) * bottomRightDotProduct;
-      xf = - yWeightTopLeft * topLeftDotProduct + yWeightTopLeft * topRightDotProduct - (1-yWeightTopLeft) * bottomLeftDotProduct + (1-yWeightTopLeft) * bottomRightDotProduct;
-
-      if(threadIdx.x==0)
-      {
-         gridData[threadIdx.y*2+1] = yf * (inputImages_height-1) / 2;
-         gridData[threadIdx.y*2] = xf * (inputImages_width-1) / 2;
-      }
-   }// must put a big if condition in order not to hang at __syncthreads()...
+   }
    __syncthreads();
 
    if(threadIdx.y==0 && withinGridBounds)      
-       gradGrids_data[b*gradGrids_strideBatch + yOut*gradGrids_strideHeight + xOut*gradGrids_strideWidth + threadIdx.x] = gridData[threadIdx.x];   
+       gradGrids_data[b*gradGrids_strideBatch + yOut*gradGrids_strideHeight + xOut*gradGrids_strideWidth + threadIdx.x] = 0; 
 }
 
 
