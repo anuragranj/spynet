@@ -62,6 +62,9 @@ th timing_benchmark.lua -data YOUR_FLYING_CHAIRS_DATA_DIRECTORY
 1. Our warping code is based on [qassemoquab/stnbhwd.](https://github.com/qassemoquab/stnbhwd)
 2. The images in `samples` are from Flying Chairs dataset: 
    Dosovitskiy, Alexey, et al. "Flownet: Learning optical flow with convolutional networks." 2015 IEEE International Conference on Computer Vision (ICCV). IEEE, 2015.
+   
+## License
+Free for non-commercial and scientific research purposes. For commercial use, please contact ps-license@tue.mpg.de. Check LICENSE file for details.
 
 ## When using this code, please cite
 Ranjan, Anurag, and Michael J. Black. "Optical Flow Estimation using a Spatial Pyramid Network." arXiv preprint arXiv:1611.00850 (2016). 
