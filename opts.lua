@@ -16,7 +16,7 @@ function M.parse(arg)
     ------------ General options --------------------
 
     cmd:option('-cache', 'checkpoint/', 'subdirectory in which to save/log experiments')
-    cmd:option('-data', '/is/ps2/aranjan/AllFlowData/flying_chairs', 'Home of Flying Chairs dataset')
+    cmd:option('-data', 'flying_chairs/data', 'Home of Flying Chairs dataset')
     cmd:option('-trainValidationSplit', 'train_val_split.txt', 'File containing training and validation split')
     cmd:option('-manualSeed',         2, 'Manually set RNG seed')
     cmd:option('-GPU',                1, 'Default preferred GPU')
@@ -30,9 +30,9 @@ function M.parse(arg)
     ------------- Training options --------------------
     cmd:option('-augment',         1,     'augment the data')   
     cmd:option('-nEpochs',         1000,    'Number of total epochs to run')
-    cmd:option('-epochSize',       4000, 'Number of batches per epoch')
+    cmd:option('-epochSize',       1000, 'Number of batches per epoch')
     cmd:option('-epochNumber',     1,     'Manual epoch number (useful on restarts)')
-    cmd:option('-batchSize',       256,   'mini-batch size (1 = pure stochastic)')
+    cmd:option('-batchSize',       32,   'mini-batch size (1 = pure stochastic)')
     ---------- Optimization options ----------------------
     cmd:option('-LR',    0.0, 'learning rate; if set, overrides default LR/WD recipe')
     cmd:option('-momentum',        0.9,  'momentum')
