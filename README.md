@@ -48,6 +48,17 @@ You can also use batch-mode, if your images `im` are a tensor of size `Bx6xHxW`,
 ```lua
 flow = computeFlow(im)
 ```
+
+## Training
+Training sequentially is faster than training end-to-end since you need to learn small number of parameters at each level. To train a level `N`, we need the trained models at levels `1` to `N-1`. You also initialize the model with a pretrained model at `N-1`.
+
+E.g. To train level 3, we need trained models at `L1` and `L2`, and we initialize it  `modelL2_3.t7`.
+```bash
+th main.lua -fineWidth 128 -fineHeight 96 -level 3 -netType volcon \
+-cache checkpoint -data FLYING_CHAIRS_DIR \
+-L1 models/modelL1_3.t7 -L2 models/modelL2_3.t7 \
+-retrain models/modelL2_3.t7
+```
 ## Timing Benchmarks
 Our timing benchmark is set up on Flying chair dataset. To test it, you need to download
 ```bash
