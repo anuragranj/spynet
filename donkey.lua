@@ -62,10 +62,10 @@ local modelL1path, modelL2path, modelL3path, modelL4path
 local down1, down2, down3, down4, up2, up3, up4
 local warpmodel2, warpmodel3, warpmodel4
 
-modelL1path = paths.concat('models', opt.L1)
-modelL2path = paths.concat('models', opt.L2)
-modelL3path = paths.concat('models', opt.L3)
-modelL4path = paths.concat('models', opt.L4)
+modelL1path = opt.L1
+modelL2path = opt.L2
+modelL3path = opt.L3
+modelL4path = opt.L4
 
 if opt.level > 1 then
    -- Load modelL1
