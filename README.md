@@ -54,7 +54,10 @@ Training sequentially is faster than training end-to-end since you need to learn
 
 E.g. To train level 3, we need trained models at `L1` and `L2`, and we initialize it  `modelL2_3.t7`.
 ```bash
-th main.lua -fineWidth 128 -fineHeight 96 -level 3 -netType volcon -cache checkpoint -data FLYING_CHAIRS_DIR -L1 models/modelL1_3.t7 -L2 models/modelL2_3.t7 -retrain models/modelL2_3.t7
+th main.lua -fineWidth 128 -fineHeight 96 -level 3 -netType volcon \
+-cache checkpoint -data FLYING_CHAIRS_DIR \
+-L1 models/modelL1_3.t7 -L2 models/modelL2_3.t7 \
+-retrain models/modelL2_3.t7
 ```
 ## Timing Benchmarks
 Our timing benchmark is set up on Flying chair dataset. To test it, you need to download
