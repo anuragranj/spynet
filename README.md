@@ -1,5 +1,14 @@
 # SPyNet: Spatial Pyramid Network for Optical Flow
-This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850)
+This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850). Skip to:
+
+* [First things first:](#setUp)  Setting up this code
+* [Easy Usage:](#easyUsage) Compute Optical Flow in 5 lines
+* [Fast Performance Usage:](#fastPerformanceUsage) Compute Optical Flow at a rocket speed
+* [Training:](#training) Train your own models using Spatial Pyramid approach
+* [Optical Flow Utilities:](#flowUtils) A set of functions in lua for working around optical flow
+* [References:](#references) For further reading
+
+<a name="setUp"></a>
 ## First things first
 You need to have [Torch.](http://torch.ch/docs/getting-started.html#_)
 
@@ -10,6 +19,7 @@ luarocks make
 cd ../stnbhwd
 luarocks make
 ```
+<a name="easyUsage"></a>
 ## For Easy Usage, follow this
 #### Set up SPyNet
 ```lua
@@ -22,6 +32,7 @@ im1 = image.load('samples/00001_img1.ppm' )
 im2 = image.load('samples/00001_img2.ppm' )
 flow = easyComputeFlow(im1, im2)
 ```
+<a name="fastPerformanceUsage"></a>
 ## For Fast Performace, follow this (recommended)
 #### Set up SPyNet
 Set up SPyNet according to the image size and model. For optimal performance, resize your image such that width and height are a multiple of 32. You can also specify your favorite model. The present supported modes are fine tuned models `sintelFinal`(default), `sintelClean`, `kittiFinal`, and base models `chairsFinal` and `chairsClean`. 
@@ -48,7 +59,7 @@ You can also use batch-mode, if your images `im` are a tensor of size `Bx6xHxW`,
 ```lua
 flow = computeFlow(im)
 ```
-
+<a name="training"></a>
 ## Training
 Training sequentially is faster than training end-to-end since you need to learn small number of parameters at each level. To train a level `N`, we need the trained models at levels `1` to `N-1`. You also initialize the model with a pretrained model at `N-1`.
 
@@ -59,7 +70,7 @@ th main.lua -fineWidth 128 -fineHeight 96 -level 3 -netType volcon \
 -L1 models/modelL1_3.t7 -L2 models/modelL2_3.t7 \
 -retrain models/modelL2_3.t7
 ```
-
+<a name="flowUtils"></a>
 ## Optical Flow Utilities
 We provide `flowExtensions.lua` containing various functions to make your life easier with optical flow while using Torch/Lua. You can just copy this file into your project directory and use if off the shelf.
 ```lua
@@ -95,6 +106,7 @@ Scales `flow` of size `2xMxN` by `sc` times. `opt`(optional) specifies interpola
 ####[flowBatch_scaled] flowX.scaleBatch(flowBatch, sc)
 Scales `flowBatch` of size `Bx2xMxN`, a batch of `B` flow fields by `sc` times. Uses nearest-neighbor interpolation.
 
+<a name="timing"></a>
 ## Timing Benchmarks
 Our timing benchmark is set up on Flying chair dataset. To test it, you need to download
 ```bash
@@ -105,11 +117,12 @@ Run the timing benchmark
 th timing_benchmark.lua -data YOUR_FLYING_CHAIRS_DATA_DIRECTORY
 ```
 
+<a name="references"></a>
 ## References
 1. Our warping code is based on [qassemoquab/stnbhwd.](https://github.com/qassemoquab/stnbhwd)
 2. The images in `samples` are from Flying Chairs dataset: 
    Dosovitskiy, Alexey, et al. "Flownet: Learning optical flow with convolutional networks." 2015 IEEE International Conference on Computer Vision (ICCV). IEEE, 2015.
-3. Some parts of `flowExtensions.lua` are adapted from [marcoscoffier/optical-flow](https://github.com/marcoscoffier/optical-flow/blob/master/init.lua)
+3. Some parts of `flowExtensions.lua` are adapted from [marcoscoffier/optical-flow](https://github.com/marcoscoffier/optical-flow/blob/master/init.lua) with help from [fguney](https://github.com/fguney).
    
 ## License
 Free for non-commercial and scientific research purposes. For commercial use, please contact ps-license@tue.mpg.de. Check LICENSE file for details.
