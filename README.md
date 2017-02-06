@@ -4,7 +4,7 @@ This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid
 * [First things first:](#setUp)  Setting up this code
 * [Easy Usage:](#easyUsage) Compute Optical Flow in 5 lines
 * [Fast Performance Usage:](#fastPerformanceUsage) Compute Optical Flow at a rocket speed
-* [Training:](#training) Train your own models using Spatial Pyramid approach
+* [Training:](#training) Train your own models using Spatial Pyramid approach on mulitiple GPUs.
 * [Optical Flow Utilities:](#flowUtils) A set of functions in lua for working around optical flow
 * [References:](#references) For further reading
 
