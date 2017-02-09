@@ -218,11 +218,11 @@ local function setup(width, height, opt)
   elseif len <= 512 then
     computeFlow = computeInitFlowL5
     level = 5
-  elseif len <= 1024 then
+  elseif len <= 1472 then
     computeFlow = computeInitFlowL6
     level = 6
   else
-    error("Only image size <= 1024 supported. Next release will have full support.")
+    error("Only image size <= 1472 supported. Next release will have full support.")
   end
 
   if opt=="sintelFinal" then
