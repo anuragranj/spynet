@@ -243,7 +243,7 @@ local function makeData(images, flows)
 
   elseif opt.level == 3 then
     local coarseImages = image.scale(images, opt.fineWidth/2, opt.fineHeight/2)
-    initFlow = computeInitFlowL1(coarseImages:resize(1,coarseImages:size(1), 
+    initFlow = computeInitFlowL2(coarseImages:resize(1,coarseImages:size(1), 
               coarseImages:size(2), coarseImages:size(3)):cuda())
     initFlow = scaleFlow(initFlow:squeeze():float(), opt.fineHeight, opt.fineWidth)
 
@@ -252,7 +252,7 @@ local function makeData(images, flows)
 
   elseif opt.level == 4 then
     local coarseImages = image.scale(images, opt.fineWidth/2, opt.fineHeight/2)
-    initFlow = computeInitFlowL1(coarseImages:resize(1,coarseImages:size(1), 
+    initFlow = computeInitFlowL3(coarseImages:resize(1,coarseImages:size(1), 
               coarseImages:size(2), coarseImages:size(3)):cuda())
     initFlow = scaleFlow(initFlow:squeeze():float(), opt.fineHeight, opt.fineWidth)
 
@@ -261,7 +261,7 @@ local function makeData(images, flows)
 
   elseif opt.level == 5 then
     local coarseImages = image.scale(images, opt.fineWidth/2, opt.fineHeight/2)
-    initFlow = computeInitFlowL1(coarseImages:resize(1,coarseImages:size(1), 
+    initFlow = computeInitFlowL4(coarseImages:resize(1,coarseImages:size(1), 
               coarseImages:size(2), coarseImages:size(3)):cuda())
     initFlow = scaleFlow(initFlow:squeeze():float(), opt.fineHeight, opt.fineWidth)
 
