@@ -76,34 +76,34 @@ We provide `flowExtensions.lua` containing various functions to make your life e
 ```lua
 flowX = require 'flowExtensions'
 ```
-####[flow_magnitude] flowX.computeNorm(flow_x, flow_y)
+#### [flow_magnitude] flowX.computeNorm(flow_x, flow_y)
 Given `flow_x` and `flow_y` of size `MxN` each, evaluate `flow_magnitude` of size `MxN`.
 
-####[flow_angle] flowX.computeAngle(flow_x, flow_y)
+#### [flow_angle] flowX.computeAngle(flow_x, flow_y)
 Given `flow_x` and `flow_y` of size `MxN` each, evaluate `flow_angle` of size `MxN` in degrees.
 
-####[rgb] flowX.field2rgb(flow_magnitude, flow_angle, [max], [legend])
+#### [rgb] flowX.field2rgb(flow_magnitude, flow_angle, [max], [legend])
 Given `flow_magnitude` and `flow_angle` of size `MxN` each, return an image of size `3xMxN` for visualizing optical flow. `max`(optional) specifies maximum flow magnitude and `legend`(optional) is boolean that prints a legend on the image.
 
-####[rgb] flowX.xy2rgb(flow_x, flow_y, [max])
+#### [rgb] flowX.xy2rgb(flow_x, flow_y, [max])
 Given `flow_x` and `flow_y` of size `MxN` each, return an image of size `3xMxN` for visualizing optical flow. `max`(optional) specifies maximum flow magnitude.
 
-####[flow] flowX.loadFLO(filename)
+#### [flow] flowX.loadFLO(filename)
 Reads a `.flo` file. Loads `x` and `y` components of optical flow in a 2 channel `2xMxN` optical flow field. First channel stores `x` component and second channel stores `y` component.
 
 #### flowX.writeFLO(filename,F)
 Write a `2xMxN` flow field `F` containing `x` and `y` components of its flow fields in its first and second channel respectively to `filename`, a `.flo` file.
 
-####[flow] flowX.loadPFM(filename)
+#### [flow] flowX.loadPFM(filename)
 Reads a `.pfm` file. Loads `x` and `y` components of optical flow in a 2 channel `2xMxN` optical flow field. First channel stores `x` component and second channel stores `y` component.
 
-####[flow_rotated] flowX.rotate(flow, angle)
+#### [flow_rotated] flowX.rotate(flow, angle)
 Rotates `flow` of size `2xMxN` by `angle` in radians. Uses nearest-neighbor interpolation to avoid blurring at boundaries.
 
-####[flow_scaled] flowX.scale(flow, sc, [opt])
+#### [flow_scaled] flowX.scale(flow, sc, [opt])
 Scales `flow` of size `2xMxN` by `sc` times. `opt`(optional) specifies interpolation method, `simple` (default), `bilinear`, and `bicubic`.
 
-####[flowBatch_scaled] flowX.scaleBatch(flowBatch, sc)
+#### [flowBatch_scaled] flowX.scaleBatch(flowBatch, sc)
 Scales `flowBatch` of size `Bx2xMxN`, a batch of `B` flow fields by `sc` times. Uses nearest-neighbor interpolation.
 
 <a name="timing"></a>
