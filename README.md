@@ -32,6 +32,8 @@ im1 = image.load('samples/00001_img1.ppm' )
 im2 = image.load('samples/00001_img2.ppm' )
 flow = easyComputeFlow(im1, im2)
 ```
+To save your flow fields to a .flo file use [flowExtensions.writeFLO](#writeFLO).
+
 <a name="fastPerformanceUsage"></a>
 ## For Fast Performace, follow this (recommended)
 #### Set up SPyNet
@@ -91,6 +93,7 @@ Given `flow_x` and `flow_y` of size `MxN` each, return an image of size `3xMxN` 
 #### [flow] flowX.loadFLO(filename)
 Reads a `.flo` file. Loads `x` and `y` components of optical flow in a 2 channel `2xMxN` optical flow field. First channel stores `x` component and second channel stores `y` component.
 
+<a name="writeFLO"></a>
 #### flowX.writeFLO(filename,F)
 Write a `2xMxN` flow field `F` containing `x` and `y` components of its flow fields in its first and second channel respectively to `filename`, a `.flo` file.
 
