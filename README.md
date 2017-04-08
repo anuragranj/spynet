@@ -5,6 +5,7 @@ This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid
 * [Easy Usage:](#easyUsage) Compute Optical Flow in 5 lines
 * [Fast Performance Usage:](#fastPerformanceUsage) Compute Optical Flow at a rocket speed
 * [Training:](#training) Train your own models using Spatial Pyramid approach on mulitiple GPUs.
+* [End2End SPyNet:](#end2end) An easy trainable end-to-end version of SPyNet
 * [Optical Flow Utilities:](#flowUtils) A set of functions in lua for working around optical flow
 * [References:](#references) For further reading
 
@@ -72,6 +73,10 @@ th main.lua -fineWidth 128 -fineHeight 96 -level 3 -netType volcon \
 -L1 models/modelL1_3.t7 -L2 models/modelL2_3.t7 \
 -retrain models/modelL2_3.t7
 ```
+<a name="end2end"></a>
+## End2End SPyNet
+The end-to-end version of SPyNet is easily trainable and is available at [anuragranj/end2end-spynet](https://github.com/anuragranj/end2end-spynet).
+
 <a name="flowUtils"></a>
 ## Optical Flow Utilities
 We provide `flowExtensions.lua` containing various functions to make your life easier with optical flow while using Torch/Lua. You can just copy this file into your project directory and use if off the shelf.
