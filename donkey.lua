@@ -15,6 +15,7 @@ require 'spy'
 
 local flowX = require 'flowExtensions'
 local TF = require 'transforms'
+local stringx = require('pl.stringx')
 
 paths.dofile('dataset.lua')
 paths.dofile('util.lua')
@@ -138,7 +139,7 @@ local loadSize = opt.loadSize
 local inputSize = {8, opt.fineHeight, opt.fineWidth}
 local outputSize = {2, opt.fineHeight, opt.fineWidth}
 
-ocal function getTrainValidationSplits(trainFile, valFile)
+local function getTrainValidationSplits(trainFile, valFile)
    local trainfile = torch.DiskFile(trainFile)
    local traindata = trainfile:readString("*a")
    local train_samples = stringx.split(traindata, "\n")
