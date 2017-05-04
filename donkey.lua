@@ -138,20 +138,22 @@ local loadSize = opt.loadSize
 local inputSize = {8, opt.fineHeight, opt.fineWidth}
 local outputSize = {2, opt.fineHeight, opt.fineWidth}
 
-local function getTrainValidationSplits(path)
-   local numSamples = sys.fexecute( "ls " .. opt.data .. "| wc -l")/3
-   local ff = torch.DiskFile(path, 'r')
-   local trainValidationSamples = torch.IntTensor(numSamples)
-   ff:readInt(trainValidationSamples:storage())
-   ff:close()
-
-   local train_samples = trainValidationSamples:eq(1):nonzero()
-   local validation_samples = trainValidationSamples:eq(2):nonzero()
-
+ocal function getTrainValidationSplits(trainFile, valFile)
+   local trainfile = torch.DiskFile(trainFile)
+   local traindata = trainfile:readString("*a")
+   local train_samples = stringx.split(traindata, "\n")
+   train_samples:pop()
+   trainfile:close()
+   local valfile = torch.DiskFile(valFile)
+   local valdata = valfile:readString("*a")
+   local validation_samples = stringx.split(valdata, "\n")
+   validation_samples:pop()
+   valfile:close()
    return train_samples, validation_samples
 end
 
-local train_samples, validation_samples = getTrainValidationSplits(opt.trainValidationSplit)
+train_samples, validation_samples = getTrainValidationSplits(
+   paths.concat(opt.data, opt.trainFile), paths.concat(opt.data, opt.valFile))
 
 local function loadImage(path)
    local input = image.load(path, 3, 'float')
@@ -294,15 +296,17 @@ end
 -- function to load the image, jitter it appropriately (random crops etc.)
 local trainHook = function(self, id)
    collectgarbage()
-   local path1 = paths.concat(opt.data, (string.format("%05i", id) .."_img1.ppm"))
-   local path2 = paths.concat(opt.data, (string.format("%05i", id) .."_img2.ppm"))
+   local pathTable = stringx.split(self.samples[id], " ")
+   
+   local path1 = paths.concat(opt.data, pathTable[1])
+   local path2 = paths.concat(opt.data, pathTable[2])
+   local pathF = paths.concat(opt.data, pathTable[3])
    
    local img1 = loadImage(path1)
    local img2 = loadImage(path2)
-   local images = torch.cat(img1, img2, 1)
-   
-   local pathF = paths.concat(opt.data, (string.format("%05i", id) .."_flow.flo"))
    local flow = flowX.loadFLO(pathF)
+
+   local images = torch.cat(img1, img2, 1)  
 
    local imagesOut, flowOut
   
@@ -347,23 +351,16 @@ local trainHook = function(self, id)
    return makeData(imagesOut, flowOut)
 end
 
-if paths.filep(trainCache) then
-   print('Loading train metadata from cache')
-   trainLoader = torch.load(trainCache)
-   trainLoader.sampleHookTrain = trainHook
-else
    print('Creating train metadata')
    trainLoader = dataLoader{
-      loadSize = loadSize,
+      --paths = {paths.concat(opt.data, 'train')},
       inputSize = inputSize,
-      outputSize = outputSize,
-      split = 100,
-      samplingIds = train_samples,
+      flowSize = outputSize,
+      samples = train_samples,
       verbose = true
    }
-   torch.save(trainCache, trainLoader)
+  -- torch.save(trainCache, trainLoader)
    trainLoader.sampleHookTrain = trainHook
-end
 collectgarbage()
 
 -- End of train loader section
@@ -376,37 +373,32 @@ collectgarbage()
 local testHook = function(self, id)
    collectgarbage()
 
-   local path1 = paths.concat(opt.data, (string.format("%05i", id) .."_img1.ppm"))
-   local path2 = paths.concat(opt.data, (string.format("%05i", id) .."_img2.ppm"))
+   local pathTable = stringx.split(self.samples[id], " ")
+   local path1 = paths.concat(opt.data, pathTable[1])
+   local path2 = paths.concat(opt.data, pathTable[2])
+   local pathF = paths.concat(opt.data, pathTable[3])
    
    local img1 = loadImage(path1)
    local img2 = loadImage(path2)
-   local images = torch.cat(img1, img2, 1)
-   
-   local pathF = paths.concat(opt.data, (string.format("%05i", id) .."_flow.flo"))
    local flow = flowX.loadFLO(pathF)
+  
+   local images = torch.cat(img1, img2, 1)  
 
    images = TF.ColorNormalize(meanstd)(images)
 
    return makeData(images, flow)
 end
 
-if paths.filep(testCache) then
-   print('Loading test metadata from cache')
-   testLoader = torch.load(testCache)
-   testLoader.sampleHookTest = testHook
-else
    print('Creating test metadata')
    testLoader = dataLoader{
-      loadSize = loadSize,
+      --paths = {paths.concat(opt.data, 'val')},
       inputSize = inputSize,
-      outputSize = outputSize,
-      split = 0,
-      samplingIds = validation_samples,
+      flowSize = outputSize,
+      samples = validation_samples,
       verbose = true
+      --forceClasses = trainLoader.classes -- force consistent class indices between trainLoader and testLoader
    }
-   torch.save(testCache, testLoader)
+  -- torch.save(testCache, testLoader)
    testLoader.sampleHookTest = testHook
-end
 collectgarbage()
 -- End of test loader section
