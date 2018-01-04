@@ -1,5 +1,5 @@
 # SPyNet: Spatial Pyramid Network for Optical Flow
-This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850). Skip to:
+This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850). An unofficial pytorch implementation is available [here](https://github.com/sniklaus/pytorch-spynet). Skip to:
 
 * [First things first:](#setUp)  Setting up this code
 * [Easy Usage:](#easyUsage) Compute Optical Flow in 5 lines
@@ -131,6 +131,7 @@ th timing_benchmark.lua -data YOUR_FLYING_CHAIRS_DATA_DIRECTORY
 2. The images in `samples` are from Flying Chairs dataset: 
    Dosovitskiy, Alexey, et al. "Flownet: Learning optical flow with convolutional networks." 2015 IEEE International Conference on Computer Vision (ICCV). IEEE, 2015.
 3. Some parts of `flowExtensions.lua` are adapted from [marcoscoffier/optical-flow](https://github.com/marcoscoffier/optical-flow/blob/master/init.lua) with help from [fguney](https://github.com/fguney).
+4. The unofficial PyTorch implementation is from [sniklaus](https://github.com/sniklaus).
    
 ## License
 Free for non-commercial and scientific research purposes. For commercial use, please contact ps-license@tue.mpg.de. Check LICENSE file for details.
