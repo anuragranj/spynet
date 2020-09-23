@@ -1,5 +1,7 @@
 # SPyNet: Spatial Pyramid Network for Optical Flow
-This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850). An unofficial pytorch implementation is available [here](https://github.com/sniklaus/pytorch-spynet). Skip to:
+This code is based on the paper [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850). 
+
+[[Unofficial Pytorch version](https://github.com/sniklaus/pytorch-spynet)]  [[Unofficial tensorflow version](https://github.com/tukilabs/Video-Compression-Net/blob/master/utils/network.py)]
 
 * [First things first:](#setUp)  Setting up this code
 * [Easy Usage:](#easyUsage) Compute Optical Flow in 5 lines
